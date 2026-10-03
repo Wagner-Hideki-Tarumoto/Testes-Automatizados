@@ -3,7 +3,7 @@ from sqlalchemy import StaticPool, create_engine
 from sqlalchemy.orm import sessionmaker
 
 from app.database import Base, get_db
-
+from app.models import Aluno
 
 def pytest_collection_modifyitems(items):
     marker_order = {"unit": 0, "integration": 1, "e2e": 2}
