@@ -38,11 +38,15 @@ def get_or_create_aluno(db: Session) -> Aluno:
 def index(request: Request, db: Session = Depends(get_db)):
     aluno = get_or_create_aluno(db)
     desafio = random.choice(CHALLENGES)
-    return templates.TemplateResponse(request, "index.html", {
-        "desafio": desafio,
-        "aluno": aluno,
-        "timestamp": time.time(),
-    })
+    return templates.TemplateResponse(
+        request,
+        "index.html",
+        {
+            "desafio": desafio,
+            "aluno": aluno,
+            "timestamp": time.time(),
+        },
+    )
 
 
 @app.post("/responder", response_class=HTMLResponse)
@@ -71,9 +75,13 @@ def responder(
         db.commit()
         db.refresh(aluno)
 
-    return templates.TemplateResponse(request, "result.html", {
-        "acertou": acertou,
-        "xp_ganho": xp_ganho,
-        "aluno": aluno,
-        "nivel_subiu": nivel_subiu,
-    })
+    return templates.TemplateResponse(
+        request,
+        "result.html",
+        {
+            "acertou": acertou,
+            "xp_ganho": xp_ganho,
+            "aluno": aluno,
+            "nivel_subiu": nivel_subiu,
+        },
+    )

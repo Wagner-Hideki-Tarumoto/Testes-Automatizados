@@ -1,9 +1,8 @@
 import pytest
-from sqlalchemy import create_engine, StaticPool
+from sqlalchemy import StaticPool, create_engine
 from sqlalchemy.orm import sessionmaker
 
 from app.database import Base, get_db
-from app.models import Aluno
 
 
 def pytest_collection_modifyitems(items):
@@ -41,6 +40,7 @@ def db_session(db_engine):
 @pytest.fixture
 def client(db_engine):
     from fastapi.testclient import TestClient
+
     from app.main import app
 
     Session = sessionmaker(bind=db_engine)
@@ -56,5 +56,3 @@ def client(db_engine):
     with TestClient(app) as c:
         yield c
     app.dependency_overrides.clear()
-
-

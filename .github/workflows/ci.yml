@@ -7,7 +7,26 @@ on:
     branches: [main]
 
 jobs:
+  # ✅ NOVO: Verificação e Formatação com Ruff
+  lint:
+    name: Ruff — Verificação e Formatação
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Instalar UV
+        run: curl -LsSf https://astral.sh/uv/install.sh | sh
+      - name: Configurar PATH
+        run: echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+      - name: Instalar dependências
+        run: uv sync --all-extras
+      - name: Ruff — Verificação
+        run: uv run ruff check .
+      - name: Ruff — Formatação
+        run: uv run ruff format --check .
+
+  # ✅ Seus testes originais continuam IGUAL
   test-unit:
+    needs: lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

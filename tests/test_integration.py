@@ -12,11 +12,14 @@ def test_pagina_inicial_carrega(client):
 
 @pytest.mark.integration
 def test_resposta_correta_ganha_xp(client):
-    response = client.post("/responder", data={
-        "resposta": "4",
-        "desafio_id": 1,
-        "timestamp": str(time.time()),
-    })
+    response = client.post(
+        "/responder",
+        data={
+            "resposta": "4",
+            "desafio_id": 1,
+            "timestamp": str(time.time()),
+        },
+    )
     assert response.status_code == 200
     assert "Correta" in response.text
     assert "XP" in response.text
@@ -24,10 +27,13 @@ def test_resposta_correta_ganha_xp(client):
 
 @pytest.mark.integration
 def test_resposta_errada_nao_ganha_xp(client):
-    response = client.post("/responder", data={
-        "resposta": "999",
-        "desafio_id": 1,
-        "timestamp": str(time.time()),
-    })
+    response = client.post(
+        "/responder",
+        data={
+            "resposta": "999",
+            "desafio_id": 1,
+            "timestamp": str(time.time()),
+        },
+    )
     assert response.status_code == 200
     assert "Incorreta" in response.text
