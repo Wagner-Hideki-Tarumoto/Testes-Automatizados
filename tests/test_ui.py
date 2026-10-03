@@ -8,10 +8,7 @@ import pytest
 import uvicorn
 
 CHALLENGES_PATH = Path(__file__).parent.parent / "app" / "challenges.json"
-ANSWER_MAP = {
-    c["pergunta"]: c["resposta"]
-    for c in json.loads(CHALLENGES_PATH.read_text(encoding="utf-8"))
-}
+ANSWER_MAP = {c["pergunta"]: c["resposta"] for c in json.loads(CHALLENGES_PATH.read_text(encoding="utf-8"))}
 
 
 # Carrega .env se existir
