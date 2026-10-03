@@ -5,6 +5,7 @@ from sqlalchemy.orm import sessionmaker
 from app.database import Base, get_db
 from app.models import Aluno  # noqa: F401 — necessário para criar tabela
 
+
 def pytest_collection_modifyitems(items):
     marker_order = {"unit": 0, "integration": 1, "e2e": 2}
 
